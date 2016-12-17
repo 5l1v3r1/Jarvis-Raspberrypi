@@ -1,0 +1,6 @@
+【1】pyserial
+apt-get install python-serial
+也可以使用我下载的源码安装
+
+【2】串口
+由com1,com3之类的变为/dev/ttyUSB0等

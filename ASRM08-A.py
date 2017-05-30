@@ -13,6 +13,7 @@ from tasks import func9
 from tasks import func10
 from tasks import func7
 from tasks import func5
+from tasks import func2
 ###-------------------------------配置
 if platform.platform().lower().find('windows')!=-1:
     port = 'com3'

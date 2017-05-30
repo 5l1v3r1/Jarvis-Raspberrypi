@@ -91,8 +91,9 @@ if __name__=='__main__':
         setup.setup(ser, setup_config)  ##来自core.setup
         # --------------------------------------    
 
-        myparam = funcparameter(ser, unotask)  #作为所有func函数接受的参数
+        myparam = funcparameter(ser, unotask)  #作为所有func函数接受的参
 
+        UNO = UNO()
         while True:
             ##每次循环先处理UNO相关的的事项
             UNO.monitor(ser)

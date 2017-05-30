@@ -24,11 +24,11 @@ def Clock(sit,ser):#接受秒为单位的数字时间比如,Sittime
         else:
             break
 
-def main(ser):
-    t=threading.Thread(target=Clock,args=(Sittime,ser,))
+def main(myparam):
+    t=threading.Thread(target=Clock,args=(Sittime,myparam.ser,))
     t.setDaemon(True)
     t.start()
-    finish(ser)
+    finish(myparam.ser)
     
 
 if __name__=='__main__':

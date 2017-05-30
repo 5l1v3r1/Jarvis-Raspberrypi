@@ -13,10 +13,10 @@ def finish(ser,music):
         else:
             break
 
-def main(ser):
+def main(myparam):
     r=random.randint(0,songs-1)#生成0~songs-1中的随机数(含二边)
     music=str(100+r)#101之类的字符串
-    finish(ser,music)
+    finish(myparam.ser,music)
     
 
 if __name__=='__main__':

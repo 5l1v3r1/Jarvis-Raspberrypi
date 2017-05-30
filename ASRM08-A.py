@@ -25,6 +25,11 @@ timeout=0.5  ###
 dic=diccreate.taskdic(10)  ###目前支持tasks文件里的func1~func15。最小1，最大FF即255
 kouling=0  ###在我测试的时候发现脚本在执行任务和播放完成语音时可能会产生多余串口数据回复
 
+#
+from UNO import UNO
+unotask = []
+
+
 def hexHandle(argv):  #返回串口数据的二位16进制字符类型
     result = ''  
     hLen = len(argv)  
@@ -56,6 +61,12 @@ def task(result,ser,dic):#根据result串口的二位16进制字符从dic中找�
         #print 'kouling:'+str(kouling)
         kouling=0
 
+class funcparameter(object):
+
+    def __init__(self,ser, unotask):
+        self.ser = ser
+        self.unotask = unotask 
+
 
 if __name__=='__main__':
     try:
@@ -71,7 +82,8 @@ if __name__=='__main__':
                 except:
                     print "No com can be used!"
                     sys.exit()
-
+        ser.flushInput()
+        ser.flushOutput()
         # --------------------------------------
         from background import setup  
         personalsecurity_check_value = 0
@@ -79,7 +91,13 @@ if __name__=='__main__':
         setup.setup(ser, setup_config)  ##来自core.setup
         # --------------------------------------    
 
+        myparam = funcparameter(ser, unotask)  #作为所有func函数接受的参数
+
         while True:
+            ##每次循环先处理UNO相关的的事项
+            UNO.monitor(ser)
+            UNO.execute(ser, unotask)
+
             data =recvdata(ser)
             result=hexHandle(data)
             if result=='ff':           #如果是口令的回显直接进入下一次数据读取状态
@@ -91,6 +109,7 @@ if __name__=='__main__':
                     setup_config[0] = 1
                 else:
                     continue
+            
     except KeyboardInterrupt:
         print "you use ctrl+C"
         ser.close()

@@ -3,7 +3,7 @@
 def finish(ser):
     pass
 
-def main(ser):
+def main(myparam):
     pass
 
 if __name__=='__main__':

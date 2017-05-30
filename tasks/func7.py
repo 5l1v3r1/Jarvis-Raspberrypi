@@ -20,7 +20,7 @@ def finish(ser,w,wea):
 def GetNowTime():
     return time.strftime("%H",time.localtime(time.time()))
 
-def main(ser):
+def main(myparam):
     cityurl="http://www.weather.com.cn/weather/101270101.shtml"#请自行到中国天气网得到对应城市的URL
     #默认查询成都天气
     req=urllib2.Request(cityurl)
@@ -44,7 +44,7 @@ def main(ser):
         if weather!=None:
             wea=weather.group(1)
             break
-    finish(ser,w,wea)
+    finish(myparam.ser,w,wea)
             
 
 if __name__=='__main__':

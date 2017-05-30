@@ -119,14 +119,14 @@ def finish(ser):#给模块完成口令
             break
         
 
-def main(ser=''):
+def main(myparam=''):
     limtime=limitation(7)#设定什么时间才算最新新闻,这是一个数字型变量
     os.chdir(r'C:\Users\Administrator\Desktop')
     fi=open('SchoolInfo.txt','w')
     JiaoWuChu(limtime,fi)
     DianGong(limtime,fi)
     fi.close()
-    finish(ser)
+    finish(myparam.ser)
     
     
 if __name__=='__main__':

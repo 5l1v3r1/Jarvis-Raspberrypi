@@ -5,7 +5,7 @@ import random
 def finish(ser,music):
     pass
 
-def main(ser):
+def main(myparam):
     #print "func10.main() execute"
     pass
     

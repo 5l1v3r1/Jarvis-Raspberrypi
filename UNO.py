@@ -59,7 +59,7 @@ class UNO(object):
     def monitor(self,ser):
         while not self.readable_instruction_Queue.empty():
             readable_instruction = self.readable_instruction_Queue.get()
-            print "show:"+readable_instruction
+            #print "show:"+readable_instruction
             try:
                 nonparam_readable_instruction,parameters = readable_instruction.split('-')
             except ValueError:
@@ -67,10 +67,10 @@ class UNO(object):
             # 这里必须保证UNO返回的可读指令有且只有一个-
             config_detial = self._find_in_config(nonparam_readable_instruction) 
             #例子:['shake', 'play,191,$', 'shake']
-            print config_detial
+            #print config_detial
             if config_detial:
-                print config_detial[2]+".main"+"(ser, '"+config_detial[1]+"', '"+parameters+"')"
-                eval(config_detial[2]+".main"+"(ser, '"+config_detial[1]+"', '"+parameters+"')")
+                #print config_detial[2]+".main"+"(ser, '"+config_detial[1]+"', '"+parameters.strip()+"')"
+                eval(config_detial[2]+".main"+"(ser, '"+config_detial[1]+"', '"+parameters.strip()+"')")
 
 
     def execute(self,ser,unotask):

@@ -9,6 +9,9 @@ def ASR_output(ser, command):
         else:
             break
 
+def just_a_test():
+    print "discover_people.just_a_test()"
+
 def main(ser, command, parameters):
     '''
     ser是 ASR串口对象

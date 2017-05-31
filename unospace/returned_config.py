@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-
+import time
 def main():
     # 可读返回指令 ser执行命令 处理任务脚本名(unosapce.tasks下的py文件名) #解释
     # attention：这里添加后请在tasks文件夹下写好处理任务脚本，并在音频文件\UNOmonitor语音\说明.txt里添加

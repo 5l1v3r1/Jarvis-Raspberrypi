@@ -8,6 +8,7 @@ def getPlugins(directory = 'background'+os.sep+'backgroundtasks'):
     for nameext in files:
         if nameext[-2:] == 'py' and nameext != '__init__.py':
             plugins.append(nameext.split('.',1)[0])
+    
     return plugins
 
 

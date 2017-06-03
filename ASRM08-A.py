@@ -7,6 +7,8 @@ import serial  #请确保安装了该模块和ASRM08-A驱动
 import time,sys
 import platform
 from extrahelp import diccreate#这里不能用*  不然出错
+import threading 
+import Queue
 ###
 from tasks import func1  
 from tasks import func9
@@ -25,6 +27,7 @@ timeout=0.5  ###
 dic=diccreate.taskdic(10)  ###目前支持tasks文件里的func1~func15。最小1，最大FF即255
 kouling=0  ###在我测试的时候发现脚本在执行任务和播放完成语音时可能会产生多余串口数据回复
 
+ASR_data_Queue = Queue.Queue()
 #
 from UNO import UNO
 unotask = []
@@ -39,6 +42,7 @@ def hexHandle(argv):  #返回串口数据的二位16进制字符类型
         result += hhex+' '
     return result[0:2]  
 
+'''
 def recvdata(serial):  #监视串口是否有返回数据
     while True:
         data=serial.read(8)
@@ -48,6 +52,18 @@ def recvdata(serial):  #监视串口是否有返回数据
             break
         time.sleep(0.02)
     return data
+'''
+
+
+def recvdata(serial):  #监视串口是否有返回数据
+    while True:
+        data=serial.read(8)
+        if data=='':
+            continue
+        else:
+            ASR_data_Queue.put(data)
+        time.sleep(0.02)
+
 
 def task(result,ser,dic):#根据result串口的二位16进制字符从dic中找到需要执行的函数
     #不能有return，他所调用的func系列函数也不能有return
@@ -93,13 +109,21 @@ if __name__=='__main__':
 
         myparam = funcparameter(ser, unotask)  #作为所有func函数接受的参
 
+        recv_thread = threading.Thread(target=recvdata,args=(ser,))
+        recv_thread.setDaemon(True)
+        recv_thread.start()
+
         UNO = UNO()
         while True:
             ##每次循环先处理UNO相关的的事项
             UNO.monitor(ser)
             UNO.execute(ser, unotask)
 
-            data =recvdata(ser)
+            # data =recvdata(ser)
+            if ASR_data_Queue.empty():
+                continue
+            else:
+                data = ASR_data_Queue.get()
             result=hexHandle(data)
             if result=='ff':           #如果是口令的回显直接进入下一次数据读取状态
                 kouling=1

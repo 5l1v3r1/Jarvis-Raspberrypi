@@ -15,10 +15,10 @@ def timejudge(hourminute):
                 ['11','30'],
                 ['17','05'],
                 ['23','00']]
-    commands = ['play,170,$'
-                'play,171,$'
-                'play,172,$'
-                'play,173,$']
+    commands = ['play,250,$'
+                'play,251,$'
+                'play,252,$'
+                'play,253$']
     for i in xrange(len(key_time)):
         if hourminute == key_time[i]:
             return 0,commands[i]

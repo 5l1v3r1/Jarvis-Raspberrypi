@@ -1,2 +1,10 @@
 !!!!nihao
 02,nihao,002,$  请确保上次nihao的指令被删除
+
+00   254   shui xian
+01   001   hui bao
+02   002   nihao
+05   005   ti xing
+07   007   cha xun
+09   009   chang ge
+10   010   xie xie
